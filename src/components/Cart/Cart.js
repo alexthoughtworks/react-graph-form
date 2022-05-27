@@ -27,7 +27,7 @@ const Cart = (props) => {
   };
 
   function saveOrder () {
-    const array=[]
+    let array=[]
     const item ={}
     const newOrder = { items: cartCtx.items, totalAmount: cartCtx.totalAmount };
     newOrder.items.map((item)=>{
@@ -35,30 +35,22 @@ const Cart = (props) => {
         item ={id:item.id[1],quantity: item.amount}
         array.push(item)   
     })
+    console.log(array)
+    const string=JSON.stringify(array).replaceAll('"', '');
+    console.log(string)
     props.onSaveOrder(newOrder);
     const graphqlQuery = {
       "query": `mutation {
         createOrder(createOrderInput: {
           createdOn: 123457,
-          products: [
-            {
-              quantity: 3,
-              id: 1,
-            },
-            {
-              quantity: 7,
-              id: 2,
-            },
-            {
-              quantity: 1,
-              id: 3,
-            }
-          ]
+          products: ${string}
         }) {
           id
         }
       }`,
-      "variables": {}
+      "variables": {
+       
+      }
       }
     const options = {
       "method": "POST",
