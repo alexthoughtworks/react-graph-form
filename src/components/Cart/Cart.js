@@ -35,9 +35,9 @@ const Cart = (props) => {
         item ={id:item.id[1],quantity: item.amount}
         array.push(item)   
     })
-    console.log(array)
+
     const string=JSON.stringify(array).replaceAll('"', '');
-    console.log(string)
+  
     props.onSaveOrder(newOrder);
     const graphqlQuery = {
       "query": `mutation {
@@ -60,6 +60,13 @@ const Cart = (props) => {
     fetch(endpoint, options)
       .then( response => response.json())
       .then( data => console.log(data, "sucess"))
+      .then(props.onCloseCart)
+      .catch(function(error){
+        console.log('error en la API')
+      })
+
+      
+    
     
   };
 
