@@ -5,7 +5,7 @@ import CartContext from "../../store/cart-context";
 import CartItem from "./CartItem";
 import axios from 'axios';
 
-const endpoint = "http://ec2-54-242-108-35.compute-1.amazonaws.com:3000/graphql"
+const endpoint = "http://ec2-54-242-108-35.compute-1.amazonaws.com/graphql"
 
 const headers = {
   "content-type": "application/json",
@@ -61,8 +61,10 @@ const Cart = (props) => {
       .then( response => response.json())
       .then( data => console.log(data, "sucess"))
       .then(props.onCloseCart)
+      .then(alert('The order has been sent'))
       .catch(function(error){
-        console.log('error en la API')
+        
+        alert('An error in the API')
       })
 
       
